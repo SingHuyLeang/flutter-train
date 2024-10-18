@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_train/components/custom_appbar.dart';
+import 'package:flutter_train/constants/respone_size.dart';
+
+import 'components/input.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,6 +30,13 @@ class _HomePageState extends State<HomePage> {
                 userProfile: userProfile,
               ),
               // Custom Body
+              SizedBox(height: Response.height(context, 32)),
+              // - search field -
+              Input(
+                controller: TextEditingController(),
+                hint: "Find you want",
+                icon: "assets/images/search.png",
+              ),
             ],
           ),
         ),

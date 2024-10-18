@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_train/constants/font_family.dart';
 import 'package:flutter_train/theme/color.dart';
+import 'package:flutter_train/theme/text_theme.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     super.key,
     required this.firstName,
     required this.userProfile,
-    this.count = 0,
+    this.newProduct = 25,
+    this.events = 6,
   });
   final String firstName, userProfile;
-  final int count;
+  final int newProduct, events;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,19 +31,16 @@ class CustomAppBar extends StatelessWidget {
               children: [
                 Text(
                   "Hello, $firstName",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .apply(fontSizeDelta: 8),
+                  style: textStyle(
+                    context,
+                    fontSize: 28,
+                    fontFamily: FontFamily.bold,
+                  ),
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  "There are $count new Products in your.",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .apply(color: ThemeColor.primary),
-                ),
+                    "Explore new $newProduct product and $events events today.",
+                    style: textStyle(context, color: ThemeColor.primary)),
               ],
             ),
           ),
@@ -50,7 +50,7 @@ class CustomAppBar extends StatelessWidget {
             child: Container(
               alignment: Alignment.topRight,
               child: CircleAvatar(
-                radius: 24,
+                radius: 28,
                 backgroundImage: AssetImage(userProfile),
               ),
             ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:trains/blocs/cubit.dart';
+import 'package:provider/provider.dart';
+import 'package:trains/providers/counter.dart';
 import 'package:trains/pages/my_second_page.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -15,8 +15,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CubitCounter, int>(
-      builder: (cubit, state) {
+    return Consumer<CounterProvider>(
+      builder: (_, it, child) {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -41,14 +41,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   'You have pushed the button this many times:',
                 ),
                 Text(
-                  '$state',
+                  '${it.counter}',
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ],
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () => cubit.read<CubitCounter>().increment(),
+            onPressed: () => context.read<CounterProvider>().increment(),
             tooltip: 'Increment',
             child: const Icon(Icons.add),
           ),

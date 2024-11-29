@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "555831870950",
+    "project_id": "flutter-train-d0a12",
+    "storage_bucket": "flutter-train-d0a12.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555831870950:android:02608ca4df0731c23ec227",
+        "android_client_info": {
+          "package_name": "com.example.trains"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl97ynB-xE1wZyq3zWeSA1EYzZneg1cQs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

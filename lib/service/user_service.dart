@@ -11,4 +11,14 @@ class UserService {
       return await userRepo.createAccount(model);
     }
   }
+
+
+  Future<bool> signIn(UserModel model) async {
+    if (model.username.isEmpty || model.password.isEmpty) {
+      throw Exception("Missing username or password");
+    } else {
+      return await userRepo.login(model);
+    }
+  }
+
 }

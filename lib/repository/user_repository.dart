@@ -12,5 +12,13 @@ interface class UserRepository {
     );
     return response.user != null;
   }
+
   // user login
+  Future<bool> login(UserModel model) async {
+    final response = await auth.signInWithEmailAndPassword(
+      email: model.username,
+      password: model.password,
+    );
+    return response.user != null;
+  }
 }

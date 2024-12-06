@@ -24,10 +24,15 @@ class UserController extends GetxController {
               password: passwordCtrl.text,
             ),
           )
-        : false;
-        if (sucessed) {
-          loading.value = false;
-        }
+        : await userService.signIn(
+            UserModel(
+              username: usernameCtrl.text,
+              password: passwordCtrl.text,
+            ),
+          );
+    if (sucessed) {
+      loading.value = false;
+    }
     Get.snackbar("You are now", sucessed ? "success" : "try again");
     update();
   }

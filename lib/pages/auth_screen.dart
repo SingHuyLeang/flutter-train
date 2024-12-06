@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:trains/components/input_text.dart';
 import 'package:trains/controller/user_controller.dart';
@@ -64,6 +65,20 @@ class AuthScreen extends StatelessWidget {
                       color: Colors.grey[800],
                     ),
                   ),
+                ),
+                const SizedBox(height: 64),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Do you have an account ? "),
+                    GestureDetector(
+                      onTap: () =>
+                          userCtrl.isSignIn.value = !userCtrl.isSignIn.value,
+                      child: Text(
+                        "Sign ${!userCtrl.isSignIn.value ? "In" : "up"}",
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

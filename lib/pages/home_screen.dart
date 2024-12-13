@@ -1,9 +1,15 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:trains/components/input_text.dart';
+import 'package:trains/controller/todo_controller.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  final todoCtrl = Get.put(ToDoController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,28 +32,37 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 20),
-              const Text(
-                'Simple form data',
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 20),
-              InputText(
-                controller: TextEditingController(),
-                hint: "Enter title",
-              ),
-              const SizedBox(height: 16),
-              InputText(
-                controller: TextEditingController(),
-                hint: "Enter content",
-              ),
-              const SizedBox(height: 20),
-              Align(
-                alignment: Alignment.center,
-                child: CupertinoButton(
-                  color: Colors.black,
-                  onPressed: () {},
-                  child: const Text("Save", style: TextStyle(fontSize: 16)),
+              Obx(
+                () => Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Simple form data',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    const SizedBox(height: 20),
+                    InputText(
+                      controller: todoCtrl.titleCtrl,
+                      hint: "Enter title",
+                    ),
+                    const SizedBox(height: 16),
+                    InputText(
+                      controller: todoCtrl.contentCtrl,
+                      hint: "Enter content",
+                    ),
+                    const SizedBox(height: 20),
+                    Align(
+                      alignment: Alignment.center,
+                      child: CupertinoButton(
+                        color: Colors.black,
+                        onPressed: () async => todoCtrl.actions(),
+                        child: Text(
+                          todoCtrl.btnText.value,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 20),

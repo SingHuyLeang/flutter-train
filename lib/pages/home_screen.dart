@@ -1,10 +1,13 @@
 import 'dart:ffi';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trains/components/input_text.dart';
+import 'package:trains/components/todo_card.dart';
 import 'package:trains/controller/todo_controller.dart';
+import 'package:trains/model/todo_model.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -71,61 +74,38 @@ class HomeScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 20),
-              ...List.generate(
-                10,
-                (index) => Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 16,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.03),
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: const Offset(0, 5),
-                        blurRadius: 5,
-                        color: Colors.black.withOpacity(0.02),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Item title',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey[800],
-                            ),
-                          ),
-                          const Row(
-                            children: [
-                              Icon(Icons.edit, color: Colors.blue),
-                              SizedBox(width: 15),
-                              Icon(Icons.delete_rounded, color: Colors.pink),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Text(
-                        'Item content',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey[800],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              StreamBuilder<QuerySnapshot>(
+                stream: todoCtrl.todoService.repo.snapshot,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text(
+                      'Error: ${snapshot.error}',
+                      style: const TextStyle(color: Colors.red),
+                    );
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (!snapshot.hasData) {
+                    return const Text('No data');
+                  } else {
+                    final data = snapshot.data!.docs;
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: data.length,
+                      itemBuilder: (context, index) {
+                        final model = ToDoModel.fromJson(
+                          data[index].data() as Map<String, dynamic>,
+                        );
+                        return TodoCard(
+                          onTapEdit: ()=> todoCtrl.updateTodo(data[index].id, model),
+                          onTapDelete: () => todoCtrl.delete(data[index].id),
+                          model: model,
+                        );
+                      },
+                    );
+                  }
+                },
               ),
             ],
           ),

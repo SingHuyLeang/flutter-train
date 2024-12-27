@@ -12,6 +12,23 @@ class ToDoService {
       return false;
     }
   }
+
+  Future<bool> delete(String id) async {
+    if (id.isNotEmpty) {
+      return await repo.delete(id);
+    } else {
+      return false;
+    }
+  }
+
+
+  Future<bool> update(String id,ToDoModel model) async {
+    if (id.isNotEmpty && model.title.isNotEmpty && model.content.isNotEmpty) {
+      return await repo.update(id, model);
+    } else {
+      return false;
+    }
+  }
 }
 
 /**

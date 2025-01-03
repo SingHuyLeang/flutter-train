@@ -4,10 +4,10 @@ import 'package:toastification/toastification.dart';
 
 class ToastMessage {
   // info
-  info({required String title, String? description, IconData? icon}) {
+  static info({required String title, String? description, IconData? icon}) {
     toastification.show(
       type: ToastificationType.info,
-      style: ToastificationStyle.flat,
+      style: ToastificationStyle.fillColored,
       showIcon: icon != null,
       icon: Icon(icon),
       autoCloseDuration: const Duration(milliseconds: 3000),
@@ -19,10 +19,10 @@ class ToastMessage {
   }
 
   // success
-  success({required String title, String? description, IconData? icon}) {
+  static success({required String title, String? description, IconData? icon}) {
     toastification.show(
       type: ToastificationType.success,
-      style: ToastificationStyle.flat,
+      style: ToastificationStyle.fillColored,
       showIcon: icon != null,
       icon: Icon(icon),
       autoCloseDuration: const Duration(milliseconds: 3000),
@@ -34,10 +34,10 @@ class ToastMessage {
   }
 
   // warning
-  warning({required String title, String? description, IconData? icon}) {
+  static warning({required String title, String? description, IconData? icon}) {
     toastification.show(
       type: ToastificationType.warning,
-      style: ToastificationStyle.flat,
+      style: ToastificationStyle.fillColored,
       showIcon: icon != null,
       icon: Icon(icon),
       autoCloseDuration: const Duration(milliseconds: 3000),
@@ -49,10 +49,10 @@ class ToastMessage {
   }
 
   // error
-  error({required String title, String? description, IconData? icon}) {
+  static error({required String title, String? description, IconData? icon}) {
     toastification.show(
       type: ToastificationType.error,
-      style: ToastificationStyle.flat,
+      style: ToastificationStyle.fillColored,
       showIcon: icon != null,
       icon: Icon(icon),
       autoCloseDuration: const Duration(milliseconds: 3000),

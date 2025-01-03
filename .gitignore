@@ -46,5 +46,5 @@ app.*.map.json
 /linux/
 /test/
 /web/
-/widnows/
+/windows/
 /macos/

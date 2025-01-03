@@ -1,4 +1,7 @@
-import 'package:api_train/bindings/general_binding.dart';
+import 'package:api_train/bindings/network_binding.dart';
+import 'package:api_train/common/styles/colors.dart';
+import 'package:api_train/common/styles/typhographies.dart';
+import 'package:api_train/utils/helpers/network_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:toastification/toastification.dart';
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        initialBinding: GeneralBinding(),
+        initialBinding: NetworkBinding(),
         home: const MyHomePage(title: 'Flutter Demo Home Page'),
       ),
     );
@@ -41,6 +44,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final networkService = Get.find<NetworkService>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +53,20 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
+      body: Obx(() {
+        return Center(
+          child: Text(
+            networkService.isConnected.isFalse
+                ? 'No Internet Connection'
+                : 'Welcome to Flutter!',
+            style: typographies.display(
+              color: networkService.isConnected.isFalse
+                  ? AppColors.denger
+                  : AppColors.dark,
+            ),
+          ),
+        );
+      }),
       floatingActionButton: FloatingActionButton(
         onPressed: () => toastification.show(
           title: const Text('Notifications'),

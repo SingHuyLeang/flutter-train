@@ -8,7 +8,14 @@ class UsersRepository {
   final _url = "http://192.168.236.1:5000/api/user";
 
   Future<bool> addUsers(UserModel model) async {
-    // Simulating a network request to add users
+    try {
+      final response = await dio.post(_url, data: model.toJson());
+      if (response.statusCode == 200) {
+        return true;
+      }
+    } on DioException catch (e) {
+      log("Catch an exception while adding data [user] : $e");
+    }
     return false;
   }
 

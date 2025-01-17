@@ -50,11 +50,12 @@ class FormView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: CupertinoButton(
                   color: AppColors.primary,
-                  onPressed: () {},
+                  onPressed: () => appVM.actionOnClick(),
                   child: Text(
-                    "Create",
-                    style: typographies.title(
+                    appVM.isFormUpdate.value ? "Update" : "Create",
+                    style: typographies.paragraph(
                       color: AppColors.light,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),

@@ -26,6 +26,12 @@ class AppViewModel extends GetxController {
     passwordCtrl.text = '';
   }
 
+  bool allFiledNotNull() {
+    return usernameCtrl.text.trim().isNotEmpty &&
+        emailCtrl.text.trim().isNotEmpty &&
+        passwordCtrl.text.trim().isNotEmpty;
+  }
+
   void toFormView({int? index}) {
     isFormUpdate.value = index != null;
     if (isFormUpdate.value) {
@@ -42,5 +48,22 @@ class AppViewModel extends GetxController {
   void toBack() {
     Get.back();
     clear();
+  }
+
+  void actionOnClick() async {
+    if (!isFormUpdate.value && allFiledNotNull()) {
+      final response = await userController.addUser(UserModel(
+        username: usernameCtrl.text,
+        email: emailCtrl.text,
+        password: passwordCtrl.text,
+      ));
+
+      if (response) clear();
+
+      Get.snackbar(
+        "Test App",
+        response ? "Add success" : "Add failure",
+      );
+    }
   }
 }

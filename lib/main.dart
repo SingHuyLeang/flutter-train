@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:toastification/toastification.dart';
 
-import 'features/pages/home/home_page.dart';
+import 'features/views/home_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         initialBinding: NetworkBinding(),
-        home: HomePage(),
+        home: HomeView(),
       ),
     );
   }
